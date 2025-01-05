@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/{lang?}', function ($lang = 'en') {
 
-    App::setLocale($lang);
+    set_locale($lang);
     $post = Post::first();
     return view('welcome', compact('post','lang'));
 });
@@ -16,8 +16,8 @@ Route::get('/{lang?}', function ($lang = 'en') {
 Route::post('/store', function (Request $request) {
 
     $lang = $request->get('lang') ;
-    App::setLocale($lang);
-    
+    set_locale($lang);
+
     $postData = [
         'title' => $request->title,
         'body' => $request->body,
@@ -33,6 +33,10 @@ Route::post('/store', function (Request $request) {
     }
     return back();
 })->name('store');
+
+ function set_locale($lang){
+    App::setLocale($lang);
+}
 
 
 // Route::get('/dashboard', function () {
